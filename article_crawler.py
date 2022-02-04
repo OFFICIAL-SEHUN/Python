@@ -1,18 +1,24 @@
+from tkinter.messagebox import QUESTION
 import requests
 from bs4 import BeautifulSoup
 import re
 
 headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36'}
 
-for page in range(1,6):
-    print("페이지:",page)
-    url="https://www.coupang.com/np/search?q=%EA%B7%B8%EB%9E%98%ED%94%BD%EC%B9%B4%EB%93%9C&channel=user&component=&eventCategory=SRP&trcid=&traid=&sorter=scoreDesc&minPrice=&maxPrice=&priceRange=&filterType=&listSize=36&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page={}&rocketAll=false&searchIndexingToken=1=4&backgroundColor=".format(page)
-    res = requests.get(url,headers=headers)
-    res.raise_for_status()
-    soup=BeautifulSoup(res.text, "lxml")
-    items=soup.find_all("li",attrs={"class":re.compile("^search-product")})
+keyword = input("검색어 입력:")
 
-    for item in items:
+#for page in range(n,m): #페이지 개수만큼
+url="https://www.google.com/search?q={keyword}" #검색 키워드
+#-------------------------------------#
+res = requests.get(url,headers=headers)
+res.raise_for_status() #프로세스중 오류 발생하면 html객체 반환 #200반환하면 정상
+soup=BeautifulSoup(res.text, "lxml") #파서 지정 #파서종류: html.parser, lxml , xml ,html5lib
+article=soup.find_all("a",attrs={"class":"WlydOe"})
+#article=soup.find_all("a",attrs={"class":re.compile("WlydOe")}) #
+
+for i in article():
+    print(article['href'])
+'''for item in items:
         #광고 상품 제외
         ad_bedge = item.find("span",attrs={"class":"ad-badge-text"})
         if ad_bedge:
@@ -36,3 +42,4 @@ for page in range(1,6):
         print(name,"→",s_price)#제품명 및 가격 출력
         print("바로가기:{}".format("https://www.coupang.com" + link))#바로가기 링크 출력
         print("-"*100) #줄긋기
+        '''

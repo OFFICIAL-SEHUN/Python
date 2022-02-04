@@ -7,10 +7,10 @@ headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit
 for page in range(1,6):
     print("페이지:",page)
     url="https://www.coupang.com/np/search?q=%EA%B7%B8%EB%9E%98%ED%94%BD%EC%B9%B4%EB%93%9C&channel=user&component=&eventCategory=SRP&trcid=&traid=&sorter=scoreDesc&minPrice=&maxPrice=&priceRange=&filterType=&listSize=36&filter=&isPriceRange=false&brand=&offerCondition=&rating=0&page={}&rocketAll=false&searchIndexingToken=1=4&backgroundColor=".format(page)
-    res = requests.get(url,headers=headers)
-    res.raise_for_status()
-    soup=BeautifulSoup(res.text, "lxml")
-    items=soup.find_all("li",attrs={"class":re.compile("^search-product")})
+    res = requests.get(url,headers=headers) #페이지 접속 요청
+    res.raise_for_status() #프로세스중 오류 발생하면 html객체 반환 #200반환하면 정상
+    soup=BeautifulSoup(res.text, "lxml") #파서 지정 #파서종류: html.parser, lxml , xml ,html5lib
+    items=soup.find_all("li",attrs={"class":re.compile("^search-product")}) #정규식 re라이브러리 사용. search-product로 시작하는 단어 찾기
 
     for item in items:
         #광고 상품 제외
