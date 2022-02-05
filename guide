@@ -32,3 +32,8 @@ git remote add origin https://github.com/OFFICIAL-SEHUN/Python
 현재 리포지토리 확인 git remote -v
 
 깃 리포지토리 변경 https://gist.github.com/480/4681b67d2a906db8c6c1321cc678f05f
+------------------------------------------------------------
+branch 조작 
+(new_branch)$ git checkout master  //master branch로 이동
+https://run-jinyeah.tistory.com/3
+
